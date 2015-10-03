@@ -25,7 +25,13 @@ public class InsertionSort {
 			bigArray[i] = items - i;
 		}
 		long startTime = System.nanoTime();
-		sorter.sort(bigArray);
+		bigArray = sorter.sort(bigArray);
+		for(int i = 0; i < items; i++) {
+			if(bigArray[i] != i+1) {
+				System.out.println("Invalid sort");
+				break;
+			}
+		}
 		System.out.println("bigArray("+ items +"): time " + (System.nanoTime() - startTime) / 1000000000.0 + " sec");
 	}
 }

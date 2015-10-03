@@ -2,10 +2,10 @@ import java.util.Arrays;
 
 public class MergeSortIterative {
 	public int[] sort(int[] nums, int p, int r) {
-		for(int size = 1; size <= r-p-1; size*=2) {
-			for(int i = p; i < r-1; i+=size*2) {
+		for(int size = 1; size <= r-p+1; size *= 2) {
+			for(int i = p; i <= r-1; i += size * 2) {
 				int mid = Math.min(i + size - 1, r);
-				int end = Math.min(i + size*2-1, r);
+				int end = Math.min(i + size * 2 - 1, r);
 				merge(nums, i, mid, end);
 			}
 		}
@@ -14,9 +14,6 @@ public class MergeSortIterative {
 
 	private void merge(int[] nums, int p, int q, int r) {
 		int n1 = q-p+1, n2 = r-q;
-		if(n1 < 0 || n2 < 0) {
-			System.out.println(p + " " + q + " " + r);
-		}
 		int[] L = new int[n1];
 		int[] R = new int[n2];
 
@@ -60,7 +57,13 @@ public class MergeSortIterative {
 			bigArray[i] = items - i;
 		}
 		long startTime = System.nanoTime();
-		sorter.sort(bigArray, 0, bigArray.length-1);
+		bigArray = sorter.sort(bigArray, 0, bigArray.length-1);
+		for(int i = 0; i < items; i++) {
+			if(bigArray[i] != i+1) {
+				System.out.println("Invalid sort");
+				break;
+			}
+		}
 		System.out.println("bigArray("+ items +"): time " + (System.nanoTime() - startTime) / 1000000000.0 + " sec");
 	}
 }
